@@ -1,0 +1,61 @@
+body {
+	font-family: "Gentium Book Basic";
+	color: #4A4A4A;
+	
+	/*
+	 * Line height + font-size control the whole vertical rhythm of the page
+	 *
+	 * If the font size of an element (e.g., a header) is different,
+	 * change the line-height, top+bottom margin to be a multiple of the body line-height.
+	 * It'll look like this:
+	 * .my-header {
+	 *	font-size: 24px;
+	 *	line-height: 1.125; <-- body-line-height(27) / font-size(24).
+	 *	margin-top-bottom: 1.125em; <-- Or it can be a multiple of this.
+	 */
+	font-size: 18px;
+	line-height: 1.5; /* lines are 1.5 * 18px = 27px tall. */
+}
+
+p {
+	margin-top: 1.5em;
+	margin-bottom: 1.5em;
+}
+
+.user-info {
+	width: 100%;
+	background-color: orange;
+	text-align: right;
+}
+
+.user-info a {
+	color: #9B9B9B;
+	text-decoration: none;
+	width: 100%;
+	background-color: purple;
+}
+
+.content {
+	margin-left: 2em;
+	margin-right: 2em;
+}
+
+.document-list {
+	list-style: none;
+	padding-left: 0;
+	margin-top: 7.5em;
+}
+
+
+.document-title {
+	font-size: 24px;
+	line-height: 1.125; /* 27/24 = 1.125 em. See the note in the body style. */
+	margin-top: 1.125em;
+	margin-bottom: 0; /*1.125em;*/
+}
+
+
+.document-author {
+	margin-top: 0.375em;
+	color: #9B9B9B;
+}

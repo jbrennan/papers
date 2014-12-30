@@ -120,7 +120,7 @@ before "/api/*" do
 end
 
 get '/' do
-	"boo"
+	erb :index
 end
 
 
@@ -139,6 +139,7 @@ end
 
 get '/dashboard' do
 	redirect "/login" if !$user
+	redirect "/"
 end
 
 

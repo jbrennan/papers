@@ -28,7 +28,7 @@ function login() {
 			if (r.status == "OK") {
 				document.cookie = 'auth=' + r.auth_token +
 				'; expires=Thu, 1 Aug 2030 20:00:00 UTC; path=/';
-				window.location.href = "/dashboard";
+				window.location.href = "/";
 			} else {
 				alert(r.error);
 			}

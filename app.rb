@@ -19,7 +19,8 @@ require 'time'
 
 require './defaults.rb'
 
-require './util/pbkdf2.rb'
+# require './util/pbkdf2.rb'
+require 'pbkdf2'
 require './util/config.rb'
 require './util/constants.rb'
 
@@ -51,20 +52,7 @@ helpers do
 		url = "http://#{request.host}"
 		request.port == 80 ? url : url + ":#{request.port}"
 	end
-		
-	# markdown helpers
-	def markdown
-		if nil == $markdown
-			$markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :autolink => true, :no_intra_emphasis => true, :fenced_code_blocks => true)
-		end
-		return $markdown
-	end
 	
-	
-	def render_markdown(text)
-		rendered = markdown.render(text)
-		return Redcarpet::Render::SmartyPants.render(rendered)
-	end
 	
 	
 	def pretty_date(date)
@@ -112,6 +100,7 @@ end
 before do
 	$user = nil
 	authorize_user(request.cookies['auth'])
+	puts $user.inspect
 end
 
 
@@ -379,7 +368,7 @@ end
 
 def hash_password(password, salt)
 	p = PBKDF2.new do |p|
-		p.iterations = 1000#PBKDF2Iterations
+		p.iterations = 5000
 		p.password = password
 		p.salt = salt
 		p.key_length = 160/8

@@ -29,18 +29,27 @@ document.documentElement.ondrop = function(event) {
 
 function uploadFiles(files) {
 	var formData = new FormData();
+	var uploadingCount = 0;
 	
 	for (var i = 0; i < files.length; i++) {
 		
 		var file = files[i];
+		
+		if (file.type !== "application/pdf") {
+			continue;
+		}
 		var name = file.name;
 		if (name === undefined) {
 			name = "untitled file";
 		}
 		
 		formData.append(name, file)
+		uploadingCount++;
 	}
 	
+	if (uploadingCount < 1) {
+		return;
+	}
 	var request = new XMLHttpRequest();
 	request.open("POST", "/api/v1/document/upload");
 	request.onload = function() {

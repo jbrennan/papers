@@ -332,26 +332,25 @@ post '/api/v1/document/upload' do
 		
 		filename = SecureRandom.uuid # I'd love for this to be a SHA of the file instead...
 		
-		saved_path = path_by_saving_file_with_filename file, filename
+		path_by_saving_file_with_filename file, filename
 		
-		begin
-			document = Document.create
-			document.original_filename = key
-			document.filename = filename
-			document.title = key
-			
-			user_doc = DocumentUser.create
-			user_doc.document = document
-			user_doc.user = $user
-			
-			if user_doc.save
-				puts "saved the document!"
-			else
-				puts user_doc.errors.inspect
-			end
-		rescue => e
-			
-			puts "ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!" + e.inspect
+		author = Author.create # I'd love to be able to parse this out of the pdf...
+		author.name = "unknown author"
+		
+		document = Document.create
+		document.original_filename = key
+		document.filename = filename
+		document.title = key
+		document.authors << author
+		
+		user_doc = DocumentUser.create
+		user_doc.document = document
+		user_doc.user = $user
+		
+		if user_doc.save
+			puts "saved the document!"
+		else
+			puts user_doc.errors.inspect
 		end
 
 	}

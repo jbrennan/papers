@@ -22,17 +22,8 @@ p {
 	margin-bottom: 1.5em;
 }
 
-.user-info {
-	width: 100%;
-	background-color: orange;
-	text-align: right;
-}
-
-.user-info a {
-	color: #9B9B9B;
-	text-decoration: none;
-	width: 100%;
-	background-color: purple;
+.hover {
+	background-color: #ff7c77;
 }
 
 .content {

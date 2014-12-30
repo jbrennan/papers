@@ -8,12 +8,13 @@ class Document
 	
 	property :id,	Serial
 	property :title,	String, :length => 250
-	property :file_path,	String, :length => 250
+	property :filename,	String, :length => 250
+	property :original_filename, String, :length => 250
 	
 	property :created_at,	DateTime
 
 	
-	belongs_to :user
+	has n, :users, :through => Resource
 	has n, :authors, :through => Resource
 	
 end

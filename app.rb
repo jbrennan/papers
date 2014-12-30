@@ -69,12 +69,7 @@ helpers do
 	end
 	
 	def uploads_directory
-		user_directory + user_display_directory
-	end
-	
-	
-	def user_display_directory
-		"display/"
+		user_files_directory
 	end
 	
 	def ensure_uploads_directory_exists
@@ -92,6 +87,19 @@ helpers do
 	
 	def sanitize_string(string)
 		string.downcase.gsub(/[^a-zA-Z\d]/, "_")
+	end
+	
+	
+	def path_by_saving_file_with_filename(file, filename)
+		ensure_uploads_directory_exists
+		
+		path = uploads_directory + filename
+		
+		File.open(path, "w") do |f|
+			f.write(file[:tempfile].read)
+		end
+		
+		return path
 	end
 	
 end
@@ -113,7 +121,7 @@ end
 before "/api/*" do
 	content_type 'application/json'
 	
-	if request.request_method.upcase == 'POST'
+	if request.request_method.upcase == 'POST' && !request.form_data?
 		@data = JSON.parse(request.body.read)
 	end
 	
@@ -310,6 +318,45 @@ get '/api/user/exists' do
 	return {
 		:exists => false
 	}.to_json
+end
+
+
+post '/api/v1/document/upload' do
+	params.each_key { |key|
+		file = params[key]
+		if file[:type] != "application/pdf"
+			status 415
+			return api_error "File must be a pdf, was #{file[:type]} instead"
+		end
+		
+		
+		filename = SecureRandom.uuid # I'd love for this to be a SHA of the file instead...
+		
+		saved_path = path_by_saving_file_with_filename file, filename
+		
+		begin
+			document = Document.create
+			document.original_filename = key
+			document.filename = filename
+			document.title = key
+			
+			user_doc = DocumentUser.create
+			user_doc.document = document
+			user_doc.user = $user
+			
+			if user_doc.save
+				puts "saved the document!"
+			else
+				puts user_doc.errors.inspect
+			end
+		rescue => e
+			
+			puts "ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!" + e.inspect
+		end
+
+	}
+	
+	return api_OK
 end
 
 

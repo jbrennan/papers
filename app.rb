@@ -24,6 +24,8 @@ require './util/config.rb'
 require './util/constants.rb'
 
 require './models/user.rb'
+require './models/document.rb'
+require './models/author.rb'
 
 
 enable :logging

@@ -1,4 +1,5 @@
 require 'data_mapper'
+require './models/document.rb'
 
 
 class User
@@ -15,5 +16,7 @@ class User
 	
 	property :display_name, String
 	property :display_image_url, String
+	
+	has n, :documents
 	
 end

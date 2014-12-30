@@ -330,7 +330,7 @@ post '/api/v1/document/upload' do
 		end
 		
 		
-		filename = SecureRandom.uuid # I'd love for this to be a SHA of the file instead...
+		filename = SecureRandom.uuid  + ".pdf"# I'd love for this to be a SHA of the file instead...
 		
 		path_by_saving_file_with_filename file, filename
 		
@@ -352,6 +352,10 @@ post '/api/v1/document/upload' do
 		else
 			puts user_doc.errors.inspect
 		end
+		
+		document.save
+		$user.save
+		author.save
 
 	}
 	

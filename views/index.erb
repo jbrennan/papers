@@ -1,4 +1,17 @@
 <ul class = "document-list">
+	<% if $user %>
+		<% if !$user.documents.blank? %>
+		  <% for item in $user.documents %>
+			<li>
+				<p class = "document-title"><%= item.title %></p>
+				<p class = "document-author"><%= item.authors.first.name %></p>
+			</li>
+		  <% end %>
+		<% else %>
+		  
+		<% end %>
+	<% end %>
+
 	<li>
 		<p class = "document-title">Personal Dynamic Media</p>
 		<p class = "document-author">Alan Kay</p>

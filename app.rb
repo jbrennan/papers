@@ -53,7 +53,18 @@ helpers do
 		request.port == 80 ? url : url + ":#{request.port}"
 	end
 	
+	def base_url_for_document(document)
+		path = uploads_directory.gsub("public", "")
+		base_url + path
+	end
 	
+	def url_for_document_page(document)
+		base_url + "/documents/" + document.filename
+	end
+	
+	def url_for_document(document)
+		base_url_for_document(document) + document.filename
+	end
 	
 	def pretty_date(date)
 		date.strftime("%A, %B %e %Y")
@@ -102,6 +113,10 @@ helpers do
 		return path
 	end
 	
+	def editable(property_name)
+		"class = 'editable' onfocus = 'focussedEditable(event);' onblur = 'blurredEditable(event);' onkeydown = 'keyDownOnEditable(event);' contenteditable data-property = '#{property_name}'"
+	end
+	
 end
 
 
@@ -129,6 +144,12 @@ end
 
 get '/' do
 	erb :index
+end
+
+
+get '/documents/:document_id' do
+	@document = Document.first(:filename => params[:document_id])
+	erb :document_page
 end
 
 
@@ -363,6 +384,29 @@ post '/api/v1/document/upload' do
 end
 
 
+post "/api/v1/updatekey" do
+	return api_error ErrorWrongSecret if !check_api_secret @data
+	return api_error "Hey, you don't own this document!" if !user_owns_document @data
+	
+	# I know ruby can do this dynamically but it's after midnight...so I'll hardcode it for now...
+	key = @data["property"]
+	
+	if key == "document.title"
+		document = Document.first(:id => @data["documentID"])
+		document.title = @data["value"]
+		document.save
+	elsif key == "document.author"
+		document = Document.first(:id => @data["documentID"])
+		document.authors.first.name = @data["value"]
+		document.authors.first.save
+	else
+		return api_error "Trying to set unrecognized key...#{key}"
+	end
+	
+	return api_OK
+end
+
+
 ### Utilities
 
 # Returns two values:
@@ -467,6 +511,13 @@ def check_api_secret hash
 	return false if !$user
 	return (hash["apisecret"] and (hash["apisecret"] == $user[:api_secret]))
 	return (params["apisecret"] and (params["apisecret"] == $user[:api_secret]))
+end
+
+
+def user_owns_document data
+	return false if !$user
+	
+	Document.first(:id => data["documentID"]).users.first == $user
 end
 
 

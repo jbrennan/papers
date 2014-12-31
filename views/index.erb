@@ -3,7 +3,7 @@
 		<% if !$user.documents.blank? %>
 		  <% for item in $user.documents %>
 			<li>
-				<p class = "document-title"><%= item.title %></p>
+				<p class = "document-title"><a href="<%= url_for_document_page(item) %>"><%= item.title %></a></p>
 				<p class = "document-author"><%= item.authors.first.name %></p>
 			</li>
 		  <% end %>

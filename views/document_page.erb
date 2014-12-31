@@ -1,0 +1,6 @@
+<% if $user %>
+    	<script>var documentID = <%= @document.id %>;</script>
+<% end %>
+
+<p <%= editable("document.title") %>><%= @document.title %></p>
+<p <%= editable("document.author") %>><%= @document.authors.first.name %></p>

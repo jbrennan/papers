@@ -22,8 +22,8 @@ p {
 	margin-bottom: 1.5em;
 }
 
-.hover {
-	background-color: #ff7c77;
+.editable:hover {
+	background-color: #ffffd3;
 }
 
 .content {

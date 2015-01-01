@@ -2,7 +2,10 @@
     	<script>var documentID = <%= @document.id %>;</script>
 <% end %>
 
-<p class="document-title"><span <%= editable("document.title") %>><%= @document.title %></span></p>
+<p class="document-title">
+	<span <%= editable("document.title") %>><%= @document.title %></span>
+	<a href = "<%= url_for_document(@document) %>"<%= secondary_text %>>view</a>
+</p>
 <p><span <%= secondary_text %>>by</span> <span <%= editable("document.author") %>><%= @document.authors.first.name %></span></p>
 <p>
 	<span <%= editable("document.notes") %>>

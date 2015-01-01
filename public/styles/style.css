@@ -31,6 +31,12 @@ p {
 	color: #9B9B9B;
 }
 
+.document-title a.secondary-text {
+	color: #9B9B9B;
+	font-size: 18px;
+	vertical-align: middle;
+}
+
 .content {
 	margin-left: 2em;
 	margin-right: 2em;

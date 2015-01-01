@@ -26,6 +26,11 @@ p {
 	background-color: #ffffd3;
 }
 
+
+.secondary-text {
+	color: #9B9B9B;
+}
+
 .content {
 	margin-left: 2em;
 	margin-right: 2em;
@@ -43,6 +48,12 @@ p {
 	line-height: 1.125; /* 27/24 = 1.125 em. See the note in the body style. */
 	margin-top: 1.125em;
 	margin-bottom: 0; /*1.125em;*/
+}
+
+
+.document-title a {
+	text-decoration: none;
+	color: inherit;
 }
 
 

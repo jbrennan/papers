@@ -2,5 +2,14 @@
     	<script>var documentID = <%= @document.id %>;</script>
 <% end %>
 
-<p <%= editable("document.title") %>><%= @document.title %></p>
-<p <%= editable("document.author") %>><%= @document.authors.first.name %></p>
+<p class="document-title"><span <%= editable("document.title") %>><%= @document.title %></span></p>
+<p><span <%= secondary_text %>>by</span> <span <%= editable("document.author") %>><%= @document.authors.first.name %></span></p>
+<p>
+	<span <%= editable("document.notes") %>>
+		<% if @document.notes && @document.notes.length > 0 %>
+			<%= @document.notes %>
+		<% else %>
+			<span <%= secondary_text %>>notes</span>
+		<% end %>
+	</span>
+</p>

@@ -10,6 +10,7 @@ class Document
 	property :title,	String, :length => 250
 	property :filename,	String, :length => 250
 	property :original_filename, String, :length => 250
+	property :notes, Text
 	
 	property :created_at,	DateTime
 

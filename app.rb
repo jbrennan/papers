@@ -117,6 +117,11 @@ helpers do
 		"class = 'editable' onfocus = 'focussedEditable(event);' onblur = 'blurredEditable(event);' onkeydown = 'keyDownOnEditable(event);' contenteditable data-property = '#{property_name}'"
 	end
 	
+	
+	def secondary_text
+		"class = 'secondary-text'"
+	end
+	
 end
 
 
@@ -399,6 +404,10 @@ post "/api/v1/updatekey" do
 		document = Document.first(:id => @data["documentID"])
 		document.authors.first.name = @data["value"]
 		document.authors.first.save
+	elsif key == "document.notes"
+		document = Document.first(:id => @data["documentID"])
+		document.notes = @data["value"]
+		document.save
 	else
 		return api_error "Trying to set unrecognized key...#{key}"
 	end

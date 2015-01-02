@@ -15,7 +15,7 @@ class Document
 	property :created_at,	DateTime
 
 	
-	has n, :users, :through => Resource
+	belongs_to :user # This should eventually return to a Many-to-Many relationship, where tags, etc, are on the join table
 	has n, :authors, :through => Resource
 	
 end

@@ -18,6 +18,6 @@ class User
 	property :display_image_url, String
 	
 	
-	has n, :documents, :through => Resource
+	has n, :documents
 	
 end

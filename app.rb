@@ -148,6 +148,11 @@ before "/api/*" do
 end
 
 get '/' do
+	@documents = []
+	if $user
+		@documents = Document.all(:user => $user, :order => [:created_at.desc])
+	end
+	
 	erb :index
 end
 
@@ -369,15 +374,7 @@ post '/api/v1/document/upload' do
 		document.title = key
 		document.authors << author
 		
-		user_doc = DocumentUser.create
-		user_doc.document = document
-		user_doc.user = $user
-		
-		if user_doc.save
-			puts "saved the document!"
-		else
-			puts user_doc.errors.inspect
-		end
+		document.user = $user
 		
 		document.save
 		$user.save
@@ -526,7 +523,7 @@ end
 def user_owns_document data
 	return false if !$user
 	
-	Document.first(:id => data["documentID"]).users.first == $user
+	Document.first(:id => data["documentID"]).user == $user
 end
 
 

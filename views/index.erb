@@ -1,16 +1,11 @@
 <ul class = "document-list">
-	<% if $user %>
-		<% if !$user.documents.blank? %>
-		  <% for item in $user.documents %>
-			<li>
-				<p class = "document-title"><a href="<%= url_for_document_page(item) %>"><%= item.title %></a></p>
-				<p class = "document-author"><%= item.authors.first.name %></p>
-			</li>
-		  <% end %>
-		<% else %>
-		  
-		<% end %>
-	<% end %>
+	  <% for item in @documents %>
+		<li>
+			<p class = "document-title"><a href="<%= url_for_document_page(item) %>"><%= item.title %></a></p>
+			<p class = "document-author"><%= item.authors.first.name %></p>
+		</li>
+	  <% end %>
+
 
 	<li>
 		<p class = "document-title">Personal Dynamic Media</p>

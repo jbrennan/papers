@@ -6,7 +6,7 @@ body {
 	 * Line height + font-size control the whole vertical rhythm of the page
 	 *
 	 * If the font size of an element (e.g., a header) is different,
-	 * change the line-height, top+bottom margin to be a multiple of the body line-height.
+	 * change its line-height, top+bottom margin to be a multiple of the body line-height.
 	 * It'll look like this:
 	 * .my-header {
 	 *	font-size: 24px;
@@ -15,12 +15,29 @@ body {
 	 */
 	font-size: 18px;
 	line-height: 1.5; /* lines are 1.5 * 18px = 27px tall. */
+	
+	margin-left: 2em;
+	margin-right: 2em;
 }
 
 p {
 	margin-top: 1.5em;
 	margin-bottom: 1.5em;
 }
+
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+header h1 {
+	font-size: 36px;
+	line-height: 0.75;
+	margin-top: 1.5em;
+	margin-bottom: 1.5em;
+}
+
 
 .editable:hover {
 	background-color: #ffffd3;
@@ -34,18 +51,12 @@ p {
 .document-title a.secondary-text {
 	color: #9B9B9B;
 	font-size: 18px;
-	vertical-align: middle;
-}
-
-.content {
-	margin-left: 2em;
-	margin-right: 2em;
 }
 
 .document-list {
 	list-style: none;
 	padding-left: 0;
-	margin-top: 7.5em;
+	/* margin-top: 7.5em; */
 }
 
 

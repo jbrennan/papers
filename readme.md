@@ -1,9 +1,7 @@
-webapp
+papers
 ======
 
-A template for a simple web application in Sinatra, with user accounts.
-
-Clone and customize at will!
+A crappy lil (unfinished) web app for uploading / cataloguing pdf papers. I never got around to finishing it (it barely functions).
 
 Installation
 ------------
